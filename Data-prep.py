@@ -45,11 +45,22 @@ start = time.time()
 
 
 fileIndex = 1
-for i in os.listdir(rootFalse):
+for i in os.listdir(rootTrue):
     if str(fileIndex)+'.txt' not in os.listdir('C:\\Users\\felixdgaypc\\Desktop\\class 0 data\\'):
-        newData = get_data_point(i, rootFalse)
-        with open(str(fileIndex)+'.txt', 'w') as trueFile:
+        newData = get_data_point(i, rootTrue)
+        with open(str(fileIndex)+'T.txt', 'w') as trueFile:
             trueFile.write(str(newData))
+            print(len(newData))
+    fileIndex += 1
+
+print('Done True')
+
+fileIndex = 1
+for i in os.listdir(rootFalse):
+    if str(fileIndex)+'.txt' not in os.listdir('C:\\Users\\felixdgaypc\\Desktop\\class 1 data\\'):
+        newData = get_data_point(i, rootFalse)
+        with open(str(fileIndex)+'F.txt', 'w') as falseFile:
+            falseFile.write(str(newData))
             print(len(newData))
     fileIndex += 1
 

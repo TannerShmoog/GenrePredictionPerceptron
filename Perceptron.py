@@ -17,6 +17,8 @@ for i in range(len(weights)):
 #read in used files
 with open('used.txt', 'r') as usedFile:
     used = usedFile.read().split('\n')
+    
+#tests for reading in data files
 with open('class 0 data\\1.txt', 'r') as usedFile:
     a1 = usedFile.read().split(',')
     print(a1[-10:])
@@ -25,7 +27,9 @@ with open('class 1 data\\1.txt', 'r') as usedFile:
     a1 = usedFile.read().split(',')
     print(a1[-10:])
     print(len(a1))
-    
+
+done = time.time()
+print(done-start)
 
 '''
 main loop:
@@ -38,12 +42,6 @@ main loop:
     mark filename as used
 '''     
 
-
-
-
-
-done = time.time()
-print(done-start)
 '''INITIALIZE NEW WEIGHTS, USE WITH  CAUTION
 weights = [0]*2666667
 with open('weights.txt', 'w') as weightFile:
