@@ -7,7 +7,7 @@ rootFalse = "wav class 1\\"
 MAX_VALS = 661500 
 MAX = 36767
 MIN = -32768
-l_rate = 0.2
+l_rate = 0.02
 ######################################################################
 start = time.time()
 
@@ -84,14 +84,15 @@ def train_weights(data_array, weights, l_rate,
     return weights
 
 #TODO: graph and gui to start/stop training maybe?
-new_weights()
+#TODO: readme.md
+#new_weights()
 accuracy = read_accuracy()
 num_predictions = int(accuracy[0].split('\t')[1])
 num_correct = int(accuracy[1].split('\t')[1])
 weights = read_weights()
 pred_count = 0
 #Main loop to train the weights
-for i in range(1000):
+for i in range(10000):
     #1 is of the desired class, 0 is not of the desired class
     seed = random.randint(0,1)
     if seed == 1:
@@ -99,23 +100,26 @@ for i in range(1000):
     elif seed == 0:
         root = rootFalse
     filename = random.choice(os.listdir(root))
-    data_array = get_data_point(filename, root)
-    prediction = predict(data_array, weights)
-    num_predictions += 1
-    pred_count += 1
-    if seed != prediction:
-        #Train the weights for wrong answer
-        weights = train_weights(data_array, weights, l_rate, 
-                                num_predictions, num_correct, seed, prediction)
-        if weights == None:
-            break
-    else:
-        num_correct += 1
-    if pred_count%10 == 0:
-        print('Writing to file...')
-        print('Accuracy: '+str(num_correct/num_predictions)+'%')
-        write_to_file(weights, num_predictions, num_correct)
-    print("Expected: " + str(seed) +"\tPredicted: " + str(prediction))
+    try:
+        data_array = get_data_point(filename, root)
+        prediction = predict(data_array, weights)
+        num_predictions += 1
+        pred_count += 1
+        if seed != prediction:
+            #Train the weights for wrong answer
+            weights = train_weights(data_array, weights, l_rate, 
+                                    num_predictions, num_correct, seed, prediction)
+            if weights == None:
+                break
+        else:
+            num_correct += 1
+        if pred_count%100 == 0:
+            print('Writing to file...')
+            print('Accuracy: '+str(num_correct/num_predictions)+'%')
+            write_to_file(weights, num_predictions, num_correct)
+        print("Expected: " + str(seed) +"\tPredicted: " + str(prediction))
+    except:
+        print('Skipped: '+filename)
 
 
 done = time.time()
