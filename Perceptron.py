@@ -68,7 +68,7 @@ for i in range(10):
     filename = random.choice(os.listdir(root))
     data_array = get_data_point(filename, root)
     prediction = predict(data_array, weights)
-    if seed =/= prediction:
+    if seed != prediction:
         #train the weights for wrong answer
         pass
     print("Expected: " + str(seed) +"\tPredicted: " + str(prediction))
